@@ -21,3 +21,4 @@
 - logowanie
 - system znajomych dodawanych po nicku
 - edycja profilu (awatar, hasło, wyłączenie konta)
+- powiadomienia o otrzymaniu odznaki
