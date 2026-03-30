@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kategoria 1</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #0a2a66;
+        padding: 16px;
+        color: #f2f6ff;
+        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    .header {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 800px;
+        margin: 0 auto 20px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+    }
+
+    .header h1 {
+        font-size: 1.2rem;
+        margin: 0;
+        color: #ffffff;
+    }
+
+    .menu-button {
+        position: absolute;
+        left: 16px;
+        top: 10%;
+        transform: translateY(-50%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 13px;
+        border-radius: 8px;
+        padding: 8px 11px;
+        cursor: pointer;
+    }
+
+    /*.menu-button { 
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 13px;
+        border-radius: 8px;
+        padding: 8px 11px;
+        cursor: pointer;
+    } */
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 62px;
+        left: 16px;
+        background: #14236c;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 10px;
+        padding: 8px;
+        min-width: 150px;
+        z-index: 10;
+    }
+
+    .menu a {
+        color: #f2f6ff;
+        text-decoration: none;
+        display: block;
+        padding: 8px 10px;
+        border-radius: 6px;
+    }
+
+    .menu a:hover {
+        background: rgba(255,255,255,0.15);
+    }
+
+    .list {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    .item {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        column-gap: 16px;
+        align-items: start;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        padding: 14px;
+        margin-bottom: 16px;
+    }
+
+    .item .visual {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .item img {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .description {
+        font-size: 13px;
+        color: #e5edff;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px;
+        border-radius: 8px;
+    }
+
+    .progress-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 12px;
+        background: #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: #4CAF50;
+        width: 0%;
+        transition: width 0.4s ease;
+    }
+
+    .progress-text {
+        font-size: 12px;
+        margin-top: 4px;
+        color: #555;
+    }
+
+    .progress-description {
+        font-size: 12px;
+        margin-top: 8px;
+        color: #dce6ff;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 8px;
+        border-radius: 6px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 8px;
+        background: #4CAF50;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Kategoria 1</h1>
+    <button id="menuBtn" class="menu-button" onclick="toggleMenu()">Menu</button>
+</div>
+
+<div id="navMenu" class="menu">
+    <a href="kategorie.html">Kategorie</a>
+</div>
+
+<div class="list">
+
+    <div class="item">
+        <div class="visual">
+            <img src="img1.jpg" alt="">
+            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="bar1" data-progress="20"></div>
+            </div>
+            <div class="progress-text" id="text1">0%</div>
+            <div class="progress-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="visual">
+            <img src="img2.jpg" alt="">
+            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="bar2" data-progress="45"></div>
+            </div>
+            <div class="progress-text" id="text2">0%</div>
+            <div class="progress-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="visual">
+            <img src="img3.jpg" alt="">
+            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="bar3" data-progress="70"></div>
+            </div>
+            <div class="progress-text" id="text3">0%</div>
+            <div class="progress-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="visual">
+            <img src="img4.jpg" alt="">
+            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="bar4" data-progress="55"></div>
+            </div>
+            <div class="progress-text" id="text4">0%</div>
+            <div class="progress-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="visual">
+            <img src="img5.jpg" alt="">
+            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="bar5" data-progress="90"></div>
+            </div>
+            <div class="progress-text" id="text5">0%</div>
+            <div class="progress-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- też do wywalenia po dodaniu backendu -->
+<button onclick="randomize()">Losuj progres</button>
+
+<script>
+    function initProgress() {
+        const bars = document.querySelectorAll(".progress-fill");
+
+        bars.forEach((bar, index) => {
+            const value = bar.getAttribute("data-progress");
+
+            bar.style.width = value + "%";
+
+            const text = document.getElementById("text" + (index + 1));
+            text.innerText = value + "%";
+        });
+    }
+
+    function setProgress(id, value) {
+        const bar = document.getElementById(id);
+        bar.style.width = value + "%";
+
+        const text = document.getElementById("text" + id.replace("bar", ""));
+        text.innerText = value + "%";
+    }
+
+
+    //do wywalenia po dodaniu backendu 
+    function randomize() {
+        for (let i = 1; i <= 5; i++) {
+            const randomValue = Math.floor(Math.random() * 101);
+            setProgress("bar" + i, randomValue);
+        }
+    }
+
+    window.onload = initProgress;
+
+    function toggleMenu() {
+        const menu = document.getElementById("navMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener("click", function (event) {
+        const menu = document.getElementById("navMenu");
+        const button = document.getElementById("menuBtn");
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>
+
