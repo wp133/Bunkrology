@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ostatnie aktywności znajomych</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        background: #0a2a66;
+        padding: 16px;
+        color: #f2f6ff;
+        font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+    .header {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 800px;
+        margin: 0 auto 20px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+    }
+
+    .menu-button {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 13px;
+        border-radius: 8px;
+        padding: 8px 11px;
+        cursor: pointer;
+    }
+
+    /*.menu-button { 
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 13px;
+        border-radius: 8px;
+        padding: 8px 11px;
+        cursor: pointer;
+    } */
+
+    .menu {
+        display: none;
+        position: absolute;
+        top: 62px;
+        left: 16px;
+        background: #14236c;
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 10px;
+        padding: 8px;
+        min-width: 150px;
+        z-index: 10;
+    }
+
+    .menu a {
+        color: #f2f6ff;
+        text-decoration: none;
+        display: block;
+        padding: 8px 10px;
+        border-radius: 6px;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+    .feed {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .activity {
+        display: flex;
+        gap: 12px;
+        background: white;
+        padding: 12px;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .activity img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .activity-content {
+        flex: 1;
+    }
+
+    .name {
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .description {
+        font-size: 13px;
+        color: #444;
+        margin-top: 2px;
+    }
+
+    .time {
+        font-size: 11px;
+        color: #888;
+        margin-top: 6px;
+    }
+
+    /* Skeleton loader (opcjonalny) */
+    .skeleton {
+        background: linear-gradient(90deg, #eee, #ddd, #eee);
+        background-size: 200% 100%;
+        animation: loading 1.2s infinite;
+        border-radius: 8px;
+    }
+
+    @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+
+    .skeleton.avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .skeleton.text {
+        height: 10px;
+        margin-bottom: 6px;
+    }
+
+    @media (min-width: 768px) {
+        h1 {
+            font-size: 24px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>Tablica znajomych</h1>
+    <button id="menuBtn" class="menu-button" onclick="toggleMenu()">Menu</button>
+</div>
+
+<div id="navMenu" class="menu">
+    <a href="kategorie.html">Kategorie</a>
+</div>
+
+<div class="container">
+    <h1>Aktywność znajomych</h1>
+
+    <div class="feed" id="feed">
+        <!-- tutaj będą dane -->
+    </div>
+</div>
+
+<script>
+    // SYMULACJA BACKENDU - funkcja która pobiera dane
+    function fetchActivitiesFromBackend() {
+        // Symulacja zmiennych z backendu
+        const userName1 = "Anna";
+        const userAvatar1 = "avatar1.jpg";
+        const activityTime1 = "2 min temu";
+
+        const userName2 = "Kuba";
+        const userAvatar2 = "avatar2.jpg";
+        const activityTime2 = "10 min temu";
+
+        const userName3 = "Marta";
+        const userAvatar3 = "avatar3.jpg";
+        const activityTime3 = "1 godz. temu";
+
+        // Zwrócenie danych jako tablica
+        return [
+            {
+                name: userName1,
+                avatar: userAvatar1,
+                description: "odwiedził(a) nową lokalizację",
+                time: activityTime1
+            },
+            {
+                name: userName2,
+                avatar: userAvatar2,
+                description: "zdobył nowe osiągnięcie",
+                time: activityTime2
+            },
+            {
+                name: userName3,
+                avatar: userAvatar3,
+                description: "zaznaczył(a) nowy punkt na mapie",
+                time: activityTime3
+            }
+        ];
+    }
+
+    // feed render
+    function renderActivities(data) {
+        const feed = document.getElementById("feed");
+        feed.innerHTML = "";
+
+        data.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "activity";
+
+            div.innerHTML = `
+                <img src="${item.avatar}" alt="">
+                <div class="activity-content">
+                    <div class="name">${item.name}</div>
+                    <div class="description">${item.description}</div>
+                    <div class="time">${item.time}</div>
+                </div>
+            `;
+
+            feed.appendChild(div);
+        });
+    }
+
+    // 🔹 symulacja ładowania danych
+    window.onload = () => {
+        const activities = fetchActivitiesFromBackend();
+        renderActivities(activities);
+
+        // 🔥 tutaj podmieniasz na rzeczywisty fetch:
+        /*
+        fetch("/api/activities")
+            .then(res => res.json())
+            .then(data => renderActivities(data));
+        */
+    };
+</script>
+
+</body>
+</html>
