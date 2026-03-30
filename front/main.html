@@ -129,7 +129,7 @@
         margin-top: 6px;
     }
 
-    /* Skeleton loader (opcjonalny) */
+    /* Skeleton loader ??*/
     .skeleton {
         background: linear-gradient(90deg, #eee, #ddd, #eee);
         background-size: 200% 100%;
@@ -256,21 +256,21 @@
     <h1>Aktywność znajomych</h1>
 
     <div class="feed" id="feed">
-        <!-- tutaj będą dane -->
+        <!-- tutaj dane -->
     </div>
 </div>
 
 <button id="friendsBtn" class="friends-button" onclick="toggleFriendsPanel()">👥</button>
 
 <div id="friendsPanel" class="friends-panel">
-    <h3>Moi przyjaciele</h3>
+    <h3>Moi znajomi</h3>
     <div id="friendsList"></div>
 </div>
 
 <script>
-    // SYMULACJA BACKENDU - funkcja która pobiera dane
+    // SYMULACJA BACKENDU 
     function fetchActivitiesFromBackend() {
-        // Symulacja zmiennych z backendu
+        // Symulacja zmiennych 
         const userName1 = "Anna";
         const userAvatar1 = "avatar1.jpg";
         const activityTime1 = "2 min temu";
@@ -283,7 +283,7 @@
         const userAvatar3 = "avatar3.jpg";
         const activityTime3 = "1 godz. temu";
 
-        // Zwrócenie danych jako tablica
+        // zmienne w tablicy
         return [
             {
                 name: userName1,
@@ -328,7 +328,7 @@
         });
     }
 
-    // 🔹 symulacja ładowania danych
+    // symulacja ładowania danych
     window.onload = () => {
         const activities = fetchActivitiesFromBackend();
         renderActivities(activities);
@@ -336,7 +336,7 @@
         const friends = fetchFriendsFromBackend();
         renderFriends(friends);
 
-        // 🔥 tutaj podmieniasz na rzeczywisty fetch:
+        // tutaj podmieniasz na fetch:
         /*
         fetch("/api/activities")
             .then(res => res.json())
@@ -357,7 +357,7 @@
         }
     });
 
-    // SYMULACJA BACKENDU - lista przyjaciół
+    // Symulacja listy przyjaciół z backendu
     function fetchFriendsFromBackend() {
         return [
             { name: "Anna", avatar: "avatar1.jpg", status: "Online" },
