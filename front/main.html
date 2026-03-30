@@ -158,6 +158,86 @@
             font-size: 24px;
         }
     }
+
+    .friends-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: #4CAF50;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+        transition: transform 0.2s ease;
+    }
+
+    .friends-button:hover {
+        transform: scale(1.1);
+    }
+
+    .friends-panel {
+        display: none;
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        width: 280px;
+        max-height: 400px;
+        background: #14236c;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        overflow-y: auto;
+    }
+
+    .friends-panel h3 {
+        color: #f2f6ff;
+        font-size: 14px;
+        padding: 12px;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .friend-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        color: #f2f6ff;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .friend-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .friend-item img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .friend-info {
+        flex: 1;
+    }
+
+    .friend-name {
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    .friend-status {
+        font-size: 11px;
+        color: #9db4e0;
+    }
 </style>
 </head>
 
@@ -178,6 +258,13 @@
     <div class="feed" id="feed">
         <!-- tutaj będą dane -->
     </div>
+</div>
+
+<button id="friendsBtn" class="friends-button" onclick="toggleFriendsPanel()">👥</button>
+
+<div id="friendsPanel" class="friends-panel">
+    <h3>Moi przyjaciele</h3>
+    <div id="friendsList"></div>
 </div>
 
 <script>
@@ -246,6 +333,9 @@
         const activities = fetchActivitiesFromBackend();
         renderActivities(activities);
 
+        const friends = fetchFriendsFromBackend();
+        renderFriends(friends);
+
         // 🔥 tutaj podmieniasz na rzeczywisty fetch:
         /*
         fetch("/api/activities")
@@ -253,6 +343,63 @@
             .then(data => renderActivities(data));
         */
     };
+
+    function toggleMenu() {
+        const menu = document.getElementById("navMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener("click", function (event) {
+        const menu = document.getElementById("navMenu");
+        const button = document.getElementById("menuBtn");
+        if (!button.contains(event.target) && !menu.contains(event.target)) {
+            menu.style.display = "none";
+        }
+    });
+
+    // SYMULACJA BACKENDU - lista przyjaciół
+    function fetchFriendsFromBackend() {
+        return [
+            { name: "Anna", avatar: "avatar1.jpg", status: "Online" },
+            { name: "Kuba", avatar: "avatar2.jpg", status: "Online" },
+            { name: "Marta", avatar: "avatar3.jpg", status: "Offline" },
+            { name: "Tomek", avatar: "avatar4.jpg", status: "Online" },
+            { name: "Ola", avatar: "avatar5.jpg", status: "Offline" }
+        ];
+    }
+
+    function renderFriends(friends) {
+        const friendsList = document.getElementById("friendsList");
+        friendsList.innerHTML = "";
+
+        friends.forEach(friend => {
+            const div = document.createElement("div");
+            div.className = "friend-item";
+
+            div.innerHTML = `
+                <img src="${friend.avatar}" alt="">
+                <div class="friend-info">
+                    <div class="friend-name">${friend.name}</div>
+                    <div class="friend-status">${friend.status}</div>
+                </div>
+            `;
+
+            friendsList.appendChild(div);
+        });
+    }
+
+    function toggleFriendsPanel() {
+        const panel = document.getElementById("friendsPanel");
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+    }
+
+    window.addEventListener("click", function (event) {
+        const panel = document.getElementById("friendsPanel");
+        const button = document.getElementById("friendsBtn");
+        if (!button.contains(event.target) && !panel.contains(event.target)) {
+            panel.style.display = "none";
+        }
+    });
 </script>
 
 </body>
