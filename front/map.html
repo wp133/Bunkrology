@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bunkrology</title>
+
+  <link rel="icon" type="image/x-icon" href="../static/assets/favicon.png">
+  <link rel="shortcut icon" type="image/x-icon" href="../static/assets/favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@3.3.1/dist/Control.Geocoder.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.css">
+
+  <link rel="stylesheet" href="../static/css/main.css">
+
+</head>
+<body>
+  <main class="map-page">
+
+    <div id="main-map"></div>
+
+    <div class="map-options">
+      <div class="map-button-wrapper">
+        <button type="button" id="layer-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-map" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15.817.113A.5.5 0 0 1 16 .5v14a.5.5 0 0 1-.402.49l-5 1a.5.5 0 0 1-.196 0L5.5 15.01l-4.902.98A.5.5 0 0 1 0 15.5v-14a.5.5 0 0 1 .402-.49l5-1a.5.5 0 0 1 .196 0L10.5.99l4.902-.98a.5.5 0 0 1 .415.103M10 1.91l-4-.8v12.98l4 .8zm1 12.98 4-.8V1.11l-4 .8zm-6-.8V1.11l-4 .8v12.98z"/>
+          </svg>
+        </button>
+
+        <div class="layer-popup" id="layer-popup" role="menu">
+          <div class="layer-popup-content">
+            <div class="layer-images">
+              <div class="image-item">
+                <img alt="topograficzna" src="../static/assets/layers-icons/topographicMapLayerIcon.png" id="topographicMapBaseLayer" class="layer-img selectable">
+              </div>
+              <div class="image-item">
+                <img alt="satelita" src="../static/assets/layers-icons/sateliteMapLayerIcon.png" id="sateliteMapBaseLayer" class="layer-img selectable">
+              </div>
+              <div class="image-item">
+                <img alt="klasyczna" src="../static/assets/layers-icons/classicMapLayerIcon.png" id="classicMapBaseLayer" class="layer-img selectable">
+              </div>
+            </div>
+
+            <div class="layer-checkboxes">
+              <div class="checkbox-item">
+                <input type="checkbox" id="layer-checkbox-1">
+                <label for="layer-checkbox-1">szlaki piesze</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="layer-checkbox-2">
+                <label for="layer-checkbox-2">szlaki rowerowe</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="layer-checkbox-3">
+                <label for="layer-checkbox-3">pociągi</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="measure-hint"></div>
+  </main>
+
+  <!-- Kolejnosc skryptow ma znaczenie: jQuery -> Leaflet i pluginy -> konfiguracja warstw -> logika mapy -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder@3.3.1/dist/Control.Geocoder.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+
+  <script src="../static/js/main.js"></script>
+  <script src="../static/js/map.js"></script>
+  <script src="../static/js/map-controls.js"></script>
+  <script src="../static/js/app-nav.js"></script>
+</body>
+</html>
