@@ -118,60 +118,6 @@
     document.body.appendChild(nav);
   }
 
-  function initSwipeNavigation(currentKey) {
-    if (!window.matchMedia("(max-width: 991px)").matches) return;
-    if (!currentKey) return;
-
-    const order = NAV_ITEMS.map(function (item) { return item.key; });
-    const hrefByKey = {};
-
-    NAV_ITEMS.forEach(function (item) {
-      hrefByKey[item.key] = item.href;
-    });
-
-    const touch = {
-      active: false,
-      x: 0,
-      y: 0,
-      target: null
-    };
-
-    document.addEventListener("touchstart", function (event) {
-      if (event.touches.length !== 1) return;
-
-      touch.active = true;
-      touch.x = event.touches[0].clientX;
-      touch.y = event.touches[0].clientY;
-      touch.target = event.target;
-    }, { passive: true });
-
-    document.addEventListener("touchend", function (event) {
-      if (!touch.active) return;
-      touch.active = false;
-
-      if (!event.changedTouches || event.changedTouches.length === 0) return;
-      if (touch.target && touch.target.closest(".app-nav")) return;
-
-      const endX = event.changedTouches[0].clientX;
-      const endY = event.changedTouches[0].clientY;
-      const dx = endX - touch.x;
-      const dy = endY - touch.y;
-      const absX = Math.abs(dx);
-      const absY = Math.abs(dy);
-
-      if (absX < 70) return;
-      if (absX < absY * 1.25) return;
-
-      const currentIndex = order.indexOf(currentKey);
-      if (currentIndex === -1) return;
-
-      const nextIndex = dx < 0 ? currentIndex + 1 : currentIndex - 1;
-      if (nextIndex < 0 || nextIndex >= order.length) return;
-
-      window.location.href = hrefByKey[order[nextIndex]];
-    }, { passive: true });
-  }
-
   function initAppNav() {
     injectStyles();
 
@@ -183,7 +129,6 @@
     }
 
     renderNav(currentKey);
-    initSwipeNavigation(currentKey);
   }
 
   if (document.readyState === "loading") {
